@@ -1,0 +1,61 @@
+.oos-wrap{
+	width:100%;
+	height: 100%;
+	padding: 186px 0px 0px 0px;
+}
+.oos-loginWrap{
+	min-width: 1024px;
+	position: relative;
+	margin: 0px 0px 214px 0px;
+	height: 616px;
+	background:-webkit-gradient(linear, 0 0, 0 bottom, from(rgba(21, 52, 101, 1)), to(rgba(28, 71, 98, 1)));
+}
+.oos-title{
+	position: absolute;
+	left:126px;
+	top: 60px;
+	width:300px;
+	font-size: 30px;
+	color: #fff;
+}
+.oos-bg{
+	width: 658px;
+	height: 457px;
+	position: absolute;
+	left:30%;
+	top:50%;
+	margin-left: -329px;
+	margin-top: -228px;
+	background: url(../assets/login/bg.png) center no-repeat;
+}
+/* 登录模块样式 start*/
+.oos-login{
+	width: 424px;
+	height: 364px;
+	padding: 24px 30px;
+	position: absolute;
+	right: 30%;
+	top: 50%;
+	margin-top: -212px;
+	margin-right: -182px;
+	background: #fff;
+}
+.oos-login-title{
+	margin-bottom: 20px;
+}
+.oos-login-form {
+  max-width: 364px;
+}
+.oos-login-form-forgot {
+  float: right;
+}
+.oos-login-form-button {
+  width: 100%;
+}
+/* 登录模块样式 end*/
+.oos-copyright{
+	margin: 10px 0px;
+	font-size: 16px;
+	color: #666;
+	text-align: center;
+}

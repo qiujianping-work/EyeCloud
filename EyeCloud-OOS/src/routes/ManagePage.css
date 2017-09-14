@@ -1,0 +1,35 @@
+.oos-wrap{
+	position: relative;
+    height: 100vh;
+}
+.oos-logoWrap{
+	position: absolute;
+	left: 30px;
+	top: 16px;
+	width: 220px;
+	height: 32px;    
+	line-height: 32px;
+}
+.oos-logoWrap-logo{
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	background: url('../assets/manage/logo.png') center no-repeat;
+	vertical-align: middle;
+}
+.oos-logoWrap-text{
+	display: inline-block;
+	vertical-align: middle;
+	height: 32px;
+	line-height: 32px;
+	margin-left: 14px;
+	font-size: 18px;
+	color: #fff;
+}
+.oos-wellcome{
+	position: absolute;
+	right: 30px;
+	top: 0px;
+	font-size: 18px;
+	color: #fff;
+}

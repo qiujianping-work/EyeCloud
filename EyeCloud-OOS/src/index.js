@@ -1,26 +1,25 @@
-import dva from 'dva';
-import 'antd/dist/antd.css';
-import './index.css';
+import { message } from 'antd'
+import dva from 'dva'
+import createLoading from 'dva-loading'
+import { createHistory } from 'dva/router'
+import 'babel-polyfill'
 
 // 1. Initialize
-const app = dva();
-/*{
-	initialState: {
-		products: [
-			{ name: 'dva', id: 1},
-			{ name: 'antd',id: 2}
-		],
-	},
-}*/
+const app = dva({
+  ...createLoading({
+    effects: true,
+  }),
+  history: createHistory,
+  onError (error) {
+    message.error(error.message)
+  },
+})
 
-// 2. Plugins
-// app.use({});
+// 2. Model
+app.model(require('./models/app'))
 
-// 3. Model
-app.model(require('./models/products'));
+// 3. Router
+app.router(require('./router'))
 
-// 4. Router
-app.router(require('./router'));
-
-// 5. Start
-app.start('#root');
+// 4. Start
+app.start('#root')

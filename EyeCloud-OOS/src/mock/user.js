@@ -30,7 +30,7 @@ const EnumRoleType = {
 
 const userPermission = {
   DEFAULT: {
-    visit: ['1', '2', '21', '7', '5', '51', '52', '53'],
+    visit: ['1', '11'],
     role: EnumRoleType.DEFAULT,
   },
   ADMIN: {
@@ -86,7 +86,7 @@ const NOTFOUND = {
 
 module.exports = {
 
-  [`POST ${apiPrefix}/user/login`] (req, res) {
+  [`POST ${apiPrefix}/oauth/token`] (req, res) {
     const { username, password } = req.body
     const user = adminUsers.filter(item => item.username === username)
 
@@ -103,7 +103,7 @@ module.exports = {
     }
   },
 
-  [`GET ${apiPrefix}/user/logout`] (req, res) {
+  [`GET ${apiPrefix}/server/logoff`] (req, res) {
     res.clearCookie('token')
     res.status(200).end()
   },
@@ -133,7 +133,7 @@ module.exports = {
     res.json(response)
   },
 
-  [`GET ${apiPrefix}/users`] (req, res) {
+  [`GET ${apiPrefix}/user/query`] (req, res) {
     const { query } = req
     let { pageSize, page, ...other } = query
     pageSize = pageSize || 10
@@ -169,7 +169,7 @@ module.exports = {
     })
   },
 
-  [`DELETE ${apiPrefix}/users`] (req, res) {
+  [`DELETE ${apiPrefix}/user/query`] (req, res) {
     const { ids } = req.body
     database = database.filter(item => !ids.some(_ => _ === item.id))
     res.status(204).end()
@@ -203,6 +203,26 @@ module.exports = {
     if (data) {
       database = database.filter(item => item.id !== id)
       res.status(204).end()
+    } else {
+      res.status(404).json(NOTFOUND)
+    }
+  },
+
+  [`PUT ${apiPrefix}/user/:id`] (req, res) {
+    const { id } = req.params
+    const editItem = req.body
+    let isExist = false
+
+    database = database.map((item) => {
+      if (item.id === id) {
+        isExist = true
+        return Object.assign({}, item, editItem)
+      }
+      return item
+    })
+
+    if (isExist) {
+      res.status(201).end()
     } else {
       res.status(404).json(NOTFOUND)
     }

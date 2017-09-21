@@ -92,7 +92,7 @@ export default {
         })
         if (location.pathname === '/login') {
           yield put(routerRedux.push({
-            pathname: '/dashboard',
+            pathname: '/user',
           }))
         }
       } else if (config.openPages && config.openPages.indexOf(locationPathname) < 0) {
@@ -110,7 +110,10 @@ export default {
     }, { call, put }) {
       const data = yield call(logout, parse(payload))
       if (data.success) {
-        yield put({ type: 'query' })
+        localStorage.removeItem('token');
+        yield put(routerRedux.push({
+            pathname: '/login',
+          }))
       } else {
         throw (data)
       }

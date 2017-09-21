@@ -19,11 +19,11 @@ export default {
       "changeOrigin": true,
       "pathRewrite": { "^/api/v1/weather" : "/v3/weather" }
     },
-    // "/api/v2": {
-    //   "target": "http://192.168.0.110",
-    //   "changeOrigin": true,
-    //   "pathRewrite": { "^/api/v2" : "/api/v2" }
-    // }
+    /*"/api/intellif": {
+      "target": "http://192.168.2.15:8082",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api/intellif" : "/api/intellif" }
+    }*/
   },
   env : {
     development: {

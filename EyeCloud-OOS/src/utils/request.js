@@ -5,7 +5,9 @@ import jsonp from 'jsonp'
 import lodash from 'lodash'
 import pathToRegexp from 'path-to-regexp'
 import { message } from 'antd'
-import { YQL, CORS } from './config'
+import { YQL, CORS, baseURL } from './config'
+
+axios.defaults.baseURL = baseURL;
 
 const fetch = (options) => {
   let {
@@ -57,17 +59,42 @@ const fetch = (options) => {
     case 'get':
       return axios.get(url, {
         params: cloneData,
+        headers: {
+                  'Authorization': "Bearer " + localStorage.getItem('token'),
+                },
       })
     case 'delete':
       return axios.delete(url, {
         data: cloneData,
+        headers: {
+                  'Authorization': "Bearer " + localStorage.getItem('token'),
+                },
       })
     case 'post':
-      return axios.post(url, cloneData)
+      return axios.post(url, cloneData ,{
+                headers: {
+                  'Authorization': "Bearer " + localStorage.getItem('token'),
+                },
+              })
     case 'put':
-      return axios.put(url, cloneData)
+      return axios.put(url, cloneData ,{
+                headers: {
+                  'Authorization': "Bearer " + localStorage.getItem('token'),
+                },
+              })
     case 'patch':
-      return axios.patch(url, cloneData)
+      return axios.patch(url, cloneData ,{
+                headers: {
+                  'Authorization': "Bearer " + localStorage.getItem('token'),
+                },
+              })
+    case 'form':
+      return axios.post(url, qs.stringify(cloneData) ,{
+                headers: {
+                  'Authorization': "Basic " + btoa("clientapp:123456"),
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                },
+              })
     default:
       return axios(options)
   }

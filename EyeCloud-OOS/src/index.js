@@ -1,7 +1,7 @@
 import { message } from 'antd'
 import dva from 'dva'
 import createLoading from 'dva-loading'
-import { createHistory } from 'dva/router'
+import { browserHistory } from 'dva/router'
 import 'babel-polyfill'
 
 // 1. Initialize
@@ -9,7 +9,7 @@ const app = dva({
   ...createLoading({
     effects: true,
   }),
-  history: createHistory,
+  history: browserHistory,
   onError (error) {
     message.error(error.message)
   },

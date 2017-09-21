@@ -6,6 +6,8 @@ import { config } from 'utils'
 import styles from './index.less'
 
 const FormItem = Form.Item
+var forge = require('node-forge');
+const md = forge.md.md5.create();
 
 const Login = ({
   loading,
@@ -20,6 +22,9 @@ const Login = ({
       if (errors) {
         return
       }
+      md.update(values.password);
+      const password = md.digest().toHex();
+      values = {...values,...{"grant_type":"password","scope":"read write","client_secret":"123456","client_id":"clientapp","password":password}};
       dispatch({ type: 'login/login', payload: values })
     })
   }

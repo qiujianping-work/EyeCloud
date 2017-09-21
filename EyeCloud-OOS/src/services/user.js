@@ -30,7 +30,7 @@ export async function remove (params) {
 export async function update (params) {
   return request({
     url: user,
-    method: 'patch',
+    method: 'put',
     data: params,
   })
 }

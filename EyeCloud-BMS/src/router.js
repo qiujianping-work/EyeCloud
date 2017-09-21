@@ -35,13 +35,21 @@ const Routers = function ({ history, app }) {
               cb(null, require('routes/monitor/'))
             }, 'monitor')
           },
-        }, /*{
-          path: 'store',
+        }, {
+          path: 'storeManage',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {
-              registerModel(app, require('models/store'))
-              cb(null, require('routes/store/'))
-            }, 'store')
+              registerModel(app, require('models/storeManage'))
+              cb(null, require('routes/storeManage/'))
+            }, 'storeManage')
+          },
+        }, {
+          path: 'store/:id',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('models/storeManage/detail'))
+              cb(null, require('routes/storeManage/detail/'))
+            }, 'storeDetail')
           },
         }, {
           path: 'device',
@@ -51,7 +59,7 @@ const Routers = function ({ history, app }) {
               cb(null, require('routes/device/'))
             }, 'device')
           },
-        },*/ {
+        }, {
           path: 'accountMsg',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {

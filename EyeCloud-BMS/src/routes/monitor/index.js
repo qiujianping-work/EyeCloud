@@ -6,7 +6,7 @@ const Option = Select.Option;
 
 const PersonList = (data)=>{
   const { srcList } = data;
-  const liStr = srcList.map(src=>(<li className={styles.item}><img src={src} /></li>));
+  const liStr = srcList.map((src,index)=>(<li className={styles.item} key={index}><img src={src} /></li>));
   return(
     <ul className={styles.clearx}>{liStr}</ul>
     );

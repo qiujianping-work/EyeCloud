@@ -18,13 +18,44 @@ export default {
       visit: [],
     },
     menu: [
-      {
-        id: 1,
-        icon: 'laptop',
-        name: 'Dashboard',
-        route: '/dashboard',
-      },
-    ],
+            {
+              id: '1',
+              icon: 'home',
+              name: '产品与服务',
+            },
+            {
+              id: '11',
+              bpid: '1',
+              mpid: '1',
+              name: '产品与服务列表',
+              route: '/product',
+            },
+            {
+              id: '12',
+              bpid: '1',
+              mpid: '1',
+              name: '人员布控',
+              route: '/monitor',
+            },
+            {
+              id: '2',
+              name: '店铺管理',
+              icon: 'shop',
+              route: '/storeManage',
+            },
+            {
+              id: '3',
+              name: '设备管理',
+              icon: 'message',
+              route: '/device',
+            },
+            {
+              id: '4',
+              name: '账号信息',
+              icon: 'message',
+              route: '/accountMsg',
+            },
+          ],
     menuPopoverVisible: false,
     siderFold: window.localStorage.getItem(`${prefix}siderFold`) === 'true',
     darkTheme: window.localStorage.getItem(`${prefix}darkTheme`) === 'true',
@@ -92,7 +123,7 @@ export default {
         })
         if (location.pathname === '/login') {
           yield put(routerRedux.push({
-            pathname: '/dashboard',
+            pathname: '/product',
           }))
         }
       } else if (config.openPages && config.openPages.indexOf(locationPathname) < 0) {

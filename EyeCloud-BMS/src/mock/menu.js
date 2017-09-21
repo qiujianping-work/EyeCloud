@@ -25,7 +25,14 @@ let database = [
     id: '2',
     name: '店铺管理',
     icon: 'shop',
-    route: '/store',
+    route: '/storeManage',
+  },
+  {
+    id: '21',
+    mpid: '-1',
+    bpid: '2',
+    name: '详细信息',
+    route: '/store/:id',
   },
   {
     id: '3',

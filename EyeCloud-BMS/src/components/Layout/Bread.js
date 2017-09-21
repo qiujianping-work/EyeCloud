@@ -26,9 +26,9 @@ const Bread = ({ menu, location }) => {
 
   if (!current) {
     pathArray.push(menu[0] || {
-      id: 1,
-      icon: 'user',
-      name: '用户管理',
+      id: '11',
+      name: '产品与服务列表',
+      route: '/product',
     })
     pathArray.push({
       id: 404,

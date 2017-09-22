@@ -4,13 +4,14 @@ import { connect } from 'dva'
 import { Card, Table, Modal } from 'antd'
 import { DropOption } from 'components'
 import styles from './index.less'
+import Error from '../../error'
 
 const confirm = Modal.confirm
 
 const Detail = ({ userDetail }) => {
   const { data } = userDetail
   if(JSON.stringify(data) == "{}"){
-    return(<div>出错了</div>)
+    return(<Error />)
   }
   const userData = data.data;
   console.log("userData--",data);

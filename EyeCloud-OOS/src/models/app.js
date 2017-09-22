@@ -71,12 +71,18 @@ export default {
     * query ({
       payload,
     }, { call, put, select }) {
-      yield put({
-        type: 'updateState',
-        payload: {
-          
-        },
-      })
+      if(localStorage.getItem('token')){
+        yield put({
+          type: 'updateState',
+          payload: {
+            
+          },
+        })
+      }else{
+        yield put(routerRedux.push({
+          pathname: '/login',
+        }))
+      }
     },
 
     * logout ({

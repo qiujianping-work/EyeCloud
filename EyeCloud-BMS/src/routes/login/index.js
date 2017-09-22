@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import { Button, Icon, Row, Form, Input, Checkbox } from 'antd'
+import md5 from "react-native-md5";
 import { config } from 'utils'
 import styles from './index.less'
 
@@ -20,6 +21,9 @@ const Login = ({
       if (errors) {
         return
       }
+      const password = md5.hex_md5(values.password);
+      console.log("password---",values.password,"password--md-",password);
+      values = {...values,...{"grant_type":"password","scope":"read write","client_secret":"123456","client_id":"clientapp","password":password}};
       dispatch({ type: 'login/login', payload: values })
     })
   }

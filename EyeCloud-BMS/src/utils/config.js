@@ -1,5 +1,5 @@
 const APIIntellif = '/api/intellif'
-const APIV2 = '/api/v2'
+const APIV2 = '/api'
 
 module.exports = {
   name: '慧眼云BMS管理系统',
@@ -10,12 +10,13 @@ module.exports = {
   iconFontJS: '/iconfont.js',
   CORS: [],
   openPages: ['/login'],
+  baseURL: 'http://192.168.2.15:8082',
   apiPrefix: '/api/intellif',
   APIIntellif,
   APIV2,
   api: {
-    userLogin: `${APIIntellif}/user/login`,
-    userLogout: `${APIIntellif}/user/logout`,
+    userLogin: `${APIV2}/oauth/token`,
+    userLogout: `${APIIntellif}/server/logoff`,
     userInfo: `${APIIntellif}/userInfo`,
     posts: `${APIIntellif}/posts`,
     user: `${APIIntellif}/user/:id`,
@@ -25,8 +26,5 @@ module.exports = {
     devices: `${APIIntellif}/camera/query`,
     dashboard: `${APIIntellif}/dashboard`,
     menus: `${APIIntellif}/menus`,
-    weather: `${APIIntellif}/weather`,
-    v1test: `${APIIntellif}/test`,
-    v2test: `${APIV2}/test`,
   },
 }

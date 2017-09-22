@@ -44,6 +44,13 @@ export default {
               route: '/storeManage',
             },
             {
+              id: '21',
+              mpid: '-1',
+              bpid: '2',
+              name: '详细信息',
+              route: '/store/:id',
+            },
+            {
               id: '3',
               name: '设备管理',
               icon: 'message',
@@ -95,43 +102,16 @@ export default {
     * query ({
       payload,
     }, { call, put, select }) {
-      const { success, user } = yield call(query, payload)
-      const { locationPathname } = yield select(_ => _.app)
-      if (success && user) {
-        const { list } = yield call(menusService.query)
-        const { permissions } = user
-        let menu = list
-        if (permissions.role === EnumRoleType.ADMIN || permissions.role === EnumRoleType.DEVELOPER) {
-          permissions.visit = list.map(item => item.id)
-        } else {
-          menu = list.filter((item) => {
-            const cases = [
-              permissions.visit.includes(item.id),
-              item.mpid ? permissions.visit.includes(item.mpid) || item.mpid === '-1' : true,
-              item.bpid ? permissions.visit.includes(item.bpid) : true,
-            ]
-            return cases.every(_ => _)
-          })
-        }
+      if(localStorage.getItem('token')){
         yield put({
           type: 'updateState',
           payload: {
-            user,
-            permissions,
-            menu,
+            
           },
         })
-        if (location.pathname === '/login') {
-          yield put(routerRedux.push({
-            pathname: '/product',
-          }))
-        }
-      } else if (config.openPages && config.openPages.indexOf(locationPathname) < 0) {
+      }else{
         yield put(routerRedux.push({
-          pathname: 'login',
-          query: {
-            from: locationPathname,
-          },
+          pathname: '/login',
         }))
       }
     },
@@ -141,7 +121,10 @@ export default {
     }, { call, put }) {
       const data = yield call(logout, parse(payload))
       if (data.success) {
-        yield put({ type: 'query' })
+        localStorage.removeItem('token');
+        yield put(routerRedux.push({
+            pathname: '/login',
+          }))
       } else {
         throw (data)
       }

@@ -24,6 +24,13 @@ export default {
         name: '用户管理',
         route: '/user',
       },
+      {
+        id: '11',
+        mpid: '-1',
+        bpid: '1',
+        name: '详细信息',
+        route: '/user/:id',
+      }
     ],
     menuPopoverVisible: false,
     siderFold: window.localStorage.getItem(`${prefix}siderFold`) === 'true',
@@ -64,45 +71,12 @@ export default {
     * query ({
       payload,
     }, { call, put, select }) {
-      const { success, user } = yield call(query, payload)
-      const { locationPathname } = yield select(_ => _.app)
-      if (success && user) {
-        const { list } = yield call(menusService.query)
-        const { permissions } = user
-        let menu = list
-        if (permissions.role === EnumRoleType.ADMIN || permissions.role === EnumRoleType.DEVELOPER) {
-          permissions.visit = list.map(item => item.id)
-        } else {
-          menu = list.filter((item) => {
-            const cases = [
-              permissions.visit.includes(item.id),
-              item.mpid ? permissions.visit.includes(item.mpid) || item.mpid === '-1' : true,
-              item.bpid ? permissions.visit.includes(item.bpid) : true,
-            ]
-            return cases.every(_ => _)
-          })
-        }
-        yield put({
-          type: 'updateState',
-          payload: {
-            user,
-            permissions,
-            menu,
-          },
-        })
-        if (location.pathname === '/login') {
-          yield put(routerRedux.push({
-            pathname: '/user',
-          }))
-        }
-      } else if (config.openPages && config.openPages.indexOf(locationPathname) < 0) {
-        yield put(routerRedux.push({
-          pathname: 'login',
-          query: {
-            from: locationPathname,
-          },
-        }))
-      }
+      yield put({
+        type: 'updateState',
+        payload: {
+          
+        },
+      })
     },
 
     * logout ({

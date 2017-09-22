@@ -19,10 +19,17 @@ const User = ({ location, dispatch, user, loading }) => {
     title: `${modalType === 'create' ? '新建用户' : '修改用户'}`,
     wrapClassName: 'vertical-center-modal',
     onOk (data) {
-      dispatch({
-        type: `user/${modalType}`,
-        payload: data,
-      })
+      if(modalType === 'create'){
+        dispatch({
+          type: `user/create`,
+          payload: data,
+        })
+      }else{
+        dispatch({
+          type: `user/update`,
+          payload: {...data,"startTime":"1970-01-01 00:00:00","endTime":"2050-01-01 00:00:00"},
+        })
+      }
     },
     onCancel () {
       dispatch({
@@ -85,10 +92,12 @@ const User = ({ location, dispatch, user, loading }) => {
       ...location.query,
     },
     onFilterChange (value) {
+      console.log("过滤---",value);
       dispatch(routerRedux.push({
         pathname: location.pathname,
         query: {
           ...value,
+          stationId:JSON.parse(localStorage.getItem("userInfo")).policeStationId,
           page: 1,
           pageSize,
         },

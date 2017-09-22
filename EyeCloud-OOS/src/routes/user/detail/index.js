@@ -9,7 +9,11 @@ const confirm = Modal.confirm
 
 const Detail = ({ userDetail }) => {
   const { data } = userDetail
-  console.log("userDetail--",userDetail);
+  if(JSON.stringify(data) == "{}"){
+    return(<div>出错了</div>)
+  }
+  const userData = data.data;
+  console.log("userData--",data);
 
   const handleMenuClick = (record, e) => {
     if (e.key === '1') {
@@ -72,18 +76,18 @@ const Detail = ({ userDetail }) => {
     <div className={styles.personalInfo}>
       <Card className={styles.card}>
         <div className={styles.item}>
-          <p><span>名称：</span><span>{data.name}</span></p>
+          <p><span>名称：</span><span>{userData.name}</span></p>
         </div>
         <div className={styles.item}>
-          <p><span>账号：</span><span>{data.account}</span></p>
-          <p><span>密码：</span><span>{data.password}</span></p>
+          <p><span>账号：</span><span>{userData.login}</span></p>
+          <p><span>密码：</span><span>{userData.password}</span></p>
         </div>
         <div className={styles.item}>
-          <p><span>邮箱：</span><span>{data.email}</span></p>
-          <p><span>联系方式：</span><span>{data.phone}</span></p>
+          <p><span>邮箱：</span><span>{userData.email}</span></p>
+          <p><span>联系方式：</span><span>{userData.mobile}</span></p>
         </div>
         <div className={styles.item}>
-          <p><span>备注：</span><span>{data.remarks}</span></p>
+          <p><span>备注：</span><span>{userData.remark}</span></p>
         </div>
       </Card>
       <Card className={styles.card}>
@@ -104,7 +108,7 @@ const Detail = ({ userDetail }) => {
         scroll={{ x: 1250 }}
         columns={columns}
         simple
-        rowKey={record => record.id}
+        rowKey={record => record.numId}
         dataSource={storeData}
       />
     </div>

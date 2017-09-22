@@ -27,6 +27,7 @@
     "react-dom": "^15.6.1",
     "react-draft-wysiwyg": "^1.10.0",
     "react-helmet": "^5.1.3",
+    "react-native-md5": "^1.0.0",
     "recharts": "^0.22.4"
   },
   "devDependencies": {
@@ -50,7 +51,9 @@
     "redbox-react": "^1.2.10",
     "roadhog": "^1.2.1"
   },
-  "pre-commit": ["lint"],
+  "pre-commit": [
+    "lint"
+  ],
   "scripts": {
     "dev": "set BROWSER=none&&set HOST=0.0.0.0&&roadhog server",
     "lint": "eslint --fix --ext .js src",

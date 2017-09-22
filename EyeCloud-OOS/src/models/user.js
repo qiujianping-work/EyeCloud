@@ -35,7 +35,7 @@ export default modelExtend(pageModel, {
   effects: {
 
     * query ({ payload = {} }, { call, put }) {
-      const data = yield call(query, payload)
+      const data = yield call(query, {...payload,...{stationId:JSON.parse(localStorage.getItem("userInfo")).policeStationId,page: 1,pageSize: 10000000}})
       if (data) {
         yield put({
           type: 'querySuccess',

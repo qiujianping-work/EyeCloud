@@ -12,9 +12,10 @@ export default {
     }, { put, call, select }) {
       const data = yield call(login, payload)
       const { locationQuery } = yield select(_ => _.app)
-      console.info("9899",data);
+      console.info("token--",data);
       if (data.success) {
-        window.localStorage.setItem('token',data.access_token)
+        window.localStorage.setItem('token',data.access_token);
+        window.localStorage.setItem('userInfo',JSON.stringify(data.oauth_AIK_user_info));
         const { from } = locationQuery
         yield put({ type: 'app/query' })
         if (from && from !== '/login') {

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Form, Input, InputNumber, Radio, Modal, Cascader } from 'antd'
+import md5 from "react-native-md5";
 import city from '../../utils/city'
 
 const FormItem = Form.Item
@@ -33,6 +34,7 @@ const modal = ({
         ...getFieldsValue(),
         // key: item.key,
       }
+      data.password = md5.hex_md5(data.password);
       console.log("data==",data);
       onOk(data)
     })
@@ -58,8 +60,8 @@ const modal = ({
           })(<Input placeholder="请输入名称" />)}
         </FormItem>
         <FormItem label="登录账号" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('account', {
-            initialValue: item.account,
+          {getFieldDecorator('login', {
+            initialValue: item.login,
             rules: [
               {
                 required: true,
@@ -93,8 +95,8 @@ const modal = ({
           })(<Input type="password" placeholder="密码" />)}
         </FormItem>
         <FormItem label="联系方式" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('phone', {
-            initialValue: item.phone,
+          {getFieldDecorator('mobile', {
+            initialValue: item.mobile,
             rules: [
               {
                 required: true,
@@ -117,8 +119,8 @@ const modal = ({
           })(<Input placeholder="请输入邮箱" />)}
         </FormItem>
         <FormItem label="备注" hasFeedback {...formItemLayout}>
-          {getFieldDecorator('remarks', {
-            initialValue: item.remarks,
+          {getFieldDecorator('remark', {
+            initialValue: item.remark,
             rules: [
               {
                 required: true,

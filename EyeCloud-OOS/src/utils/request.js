@@ -7,7 +7,7 @@ import pathToRegexp from 'path-to-regexp'
 import { message } from 'antd'
 import { YQL, CORS, baseURL } from './config'
 
-axios.defaults.baseURL = baseURL;
+axios.defaults.baseURL = baseURL;//默认Url地址
 
 const fetch = (options) => {
   let {

@@ -12,6 +12,7 @@ export default {
   subscriptions: {
     setup ({ dispatch, history }) {
       history.listen(({ pathname }) => {
+        console.log("跳转了");
         const match = pathToRegexp('/user/:id').exec(pathname)
         if (match) {
           dispatch({ type: 'query', payload: { id: match[1] } })
@@ -27,6 +28,7 @@ export default {
       const data = yield call(query, payload)
       const { success, message, status, ...other } = data
       if (success) {
+        console.log("详细信息--",other);
         yield put({
           type: 'querySuccess',
           payload: {
@@ -41,6 +43,7 @@ export default {
 
   reducers: {
     querySuccess (state, { payload }) {
+      console.log("状态--",state,payload);
       const { data } = payload
       return {
         ...state,

@@ -32,8 +32,8 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, onReadItem, ...tab
       key: 'name',
     }, {
       title: '登录账号',
-      dataIndex: 'account',
-      key: 'account',
+      dataIndex: 'login',
+      key: 'login',
     }, {
       title: '密码',
       dataIndex: 'password',
@@ -44,8 +44,8 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, onReadItem, ...tab
       key: 'email',
     }, {
       title: '创建时间',
-      dataIndex: 'createTime',
-      key: 'createTime',
+      dataIndex: 'created',
+      key: 'created',
     }, {
       title: '操作',
       key: 'operation',

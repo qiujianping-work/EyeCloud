@@ -73,7 +73,7 @@ const User = ({ location, dispatch, user, loading }) => {
     onReadItem (id) {
       dispatch(routerRedux.push(`/user/${id}`));
     },
-    rowSelection: {
+    /*rowSelection: {
       selectedRowKeys,
       onChange: (keys) => {
         dispatch({
@@ -83,7 +83,7 @@ const User = ({ location, dispatch, user, loading }) => {
           },
         })
       },
-    },
+    },*/
   }
 
   const filterProps = {
@@ -140,7 +140,7 @@ const User = ({ location, dispatch, user, loading }) => {
     <div className="content-inner">
       <Filter {...filterProps} />
       {
-        selectedRowKeys.length > 0 &&
+        /*selectedRowKeys.length > 0 &&
         <Row style={{ marginBottom: 24, textAlign: 'right', fontSize: 13 }}>
           <Col>
             {`选择了 ${selectedRowKeys.length} 个用户 `}
@@ -148,7 +148,7 @@ const User = ({ location, dispatch, user, loading }) => {
               <Button type="primary" size="large" style={{ marginLeft: 8 }}>批量删除</Button>
             </Popconfirm>
           </Col>
-        </Row>
+        </Row>*/
       }
       <List {...listProps} />
       {modalVisible && <Modal {...modalProps} />}

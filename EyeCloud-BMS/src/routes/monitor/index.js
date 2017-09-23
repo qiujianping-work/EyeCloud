@@ -1,24 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { routerRedux } from 'dva/router'
+import { connect } from 'dva'
 import { Card, Button ,Select } from 'antd'
 import styles from './index.less'
 
 const Option = Select.Option;
 
-const PersonList = (data)=>{
-  const { srcList } = data;
-  const liStr = srcList.map((src,index)=>(<li className={styles.item} key={index}><img src={src} /></li>));
-  return(
-    <ul className={styles.clearx}>{liStr}</ul>
-    );
-}
 
 let faceData=[];
-for(let i=0; i<50;i++){
+for(let i=0; i<100;i++){
   faceData.push("icon/a1.jpg");
 }
-const monitor = () => {
+const Monitor = ({ location, dispatch, monitor, loading }) => {
+  const { storeList ,monitorList } = monitor;
+
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    dispatch({
+      type: 'monitor/queryMonitor',
+      payload: {
+        storeList:storeList,
+        param:{"areaId":value,"queryText":"","page":1,"pageSize":1000000000},
+      },
+    })
   }
 
   return(
@@ -27,19 +31,27 @@ const monitor = () => {
     <div className={styles.body}>
       <div className={styles.choose}>
         <span className={styles.title}>选择店铺</span>
-        <Select size="large" defaultValue="lucy" style={{ width: 200 }} onChange={handleChange}>
-          <Option value="中山店1">中山店1</Option>
-          <Option value="中山店2">中山店2</Option>
-          <Option value="中山店3" disabled>中山店3</Option>
-          <Option value="中山店4">中山店4</Option>
+        <Select size="large" style={{ width: 200 }} defaultValue="全部门店" placeholder="请选择店铺" onChange={handleChange}>
+          <Option value="">全部门店</Option>
+          {
+            storeList.map(function(store){
+              return <Option value={store.id}>{store.areaName}</Option>;
+            })
+          }
         </Select>
       </div>
       <div className={styles.personnel}>
-        <PersonList srcList = {faceData} />
+        <ul className={styles.list}>
+          {
+            monitorList.map(function(monitor){
+              return <li className={styles.item} key={monitor.id}><img src={monitor.photoData} /></li>;
+            })
+          }
+        </ul>
       </div>
       <div></div>
     </div>
   </div>)
 }
 
-export default monitor
+export default connect(({ monitor, loading }) => ({ monitor, loading }))(Monitor) 

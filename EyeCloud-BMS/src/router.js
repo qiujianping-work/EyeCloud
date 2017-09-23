@@ -31,7 +31,7 @@ const Routers = function ({ history, app }) {
           path: 'monitor',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {
-              // registerModel(app, require('models/productServer/monitor'))
+              registerModel(app, require('models/monitor'))
               cb(null, require('routes/monitor/'))
             }, 'monitor')
           },

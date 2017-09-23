@@ -20,6 +20,7 @@ module.exports = {
     userInfo: `${APIIntellif}/userInfo`,
     posts: `${APIIntellif}/posts`,
     user: `${APIIntellif}/user/:id`,
+    monitors: `${APIIntellif}/person/detail/query`,
     store: `${APIIntellif}/area/:id`,
     stores: `${APIIntellif}/area/query`,
     device: `${APIIntellif}/camera/:id`,

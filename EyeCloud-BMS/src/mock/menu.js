@@ -37,7 +37,7 @@ let database = [
   {
     id: '3',
     name: '设备管理',
-    icon: 'message',
+    icon: 'setting',
     route: '/device',
   },
   {

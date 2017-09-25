@@ -26,18 +26,18 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, onReadItem, ...tab
   }
 
   const columns = [
-    {
+    /*{
       title: '序号',
       dataIndex: 'id',
       key: 'id',
-    }, {
+    }*/, {
       title: '设备ID',
       dataIndex: 'name',
       key: 'name',
     }, {
       title: '店铺',
-      dataIndex: 'stationId',
-      key: 'stationId',
+      dataIndex: 'areaName',
+      key: 'areaName',
     }, {
       title: '位置',
       dataIndex: 'geoString',

@@ -26,11 +26,11 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, onReadItem, ...tab
   }
 
   const columns = [
-    {
+    /*{
       title: '序号',
       dataIndex: 'id',
       key: 'id',
-    },
+    },*/
     {
       title: '名称',
       dataIndex: 'areaName',
@@ -44,8 +44,8 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, onReadItem, ...tab
       },
     }, {
       title: '绑定设备数量',
-      dataIndex: 'count',
-      key: 'count',
+      dataIndex: 'countLeaf',
+      key: 'countLeaf',
     }, {
       title: '操作',
       key: 'operation',

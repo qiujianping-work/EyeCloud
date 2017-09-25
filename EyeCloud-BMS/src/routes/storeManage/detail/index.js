@@ -46,8 +46,8 @@ const Detail = ({ storeDetail }) => {
       key: 'address',
     }, {
       title: '状态',
-      dataIndex: 'state',
-      key: 'state',
+      dataIndex: 'status',
+      key: 'status',
     }, {
       title: '操作',
       key: 'operation',

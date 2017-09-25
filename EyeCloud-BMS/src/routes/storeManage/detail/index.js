@@ -92,14 +92,14 @@ const Detail = ({ storeDetail }) => {
       </Card>
     </div>
     <div className={styles.storeTable}>
-      <Table
+      {/*<Table
         bordered
         scroll={{ x: 1250 }}
         columns={columns}
         simple
         rowKey={storeData.numId}
         dataSource={storeData}
-      />
+      />*/}
     </div>
   </div>)
 }

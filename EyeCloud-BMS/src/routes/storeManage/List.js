@@ -39,6 +39,9 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, onReadItem, ...tab
       title: '创建时间',
       dataIndex: 'created',
       key: 'created',
+      render: (text, record) => {
+        return <span>{new Date(text).format('yyyy-MM-dd')}</span>
+      },
     }, {
       title: '绑定设备数量',
       dataIndex: 'count',

@@ -35,10 +35,6 @@ export default modelExtend(pageModel, {
 
     * query ({ payload = {} }, { call, put }) {
       const storeList = yield call(queryStore,{userId:JSON.parse(localStorage.getItem("userInfo")).id,page: 1,pageSize: 10000000});
-      let areaId = "";
-      if(storeList[0]){
-        areaId = storeList[0].id;
-      }
       console.log("payload--",payload);
       const data = yield call(queryList, {...{searchName:"",areaIds:""},...payload,...{page: 1,pageSize: 10000000}})
       if (data) {

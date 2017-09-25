@@ -1,20 +1,51 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
-import { Card, Table, Modal } from 'antd'
+import { Card, Table, Modal, Row, Col, Button } from 'antd'
 import { DropOption } from 'components'
 import styles from './index.less'
 import Error from '../../error'
+import Modals from './Modal'
+// import List from './List'
+// import DeviceTpl from './Modal'
 
 const confirm = Modal.confirm
 
-const Detail = ({ userDetail }) => {
-  const { data } = userDetail
-  if(JSON.stringify(data) == "{}"){
+const Detail = ({ location, dispatch, userDetail, loading }) => {
+  const { userInfo, devicesData , modalVisible, modalType, storeList } = userDetail
+  if(JSON.stringify(userInfo) == "{}"){
     return(<Error />)
   }
-  const userData = data.data;
-  console.log("userData--",data);
+  const userData = userInfo.data;
+  console.log("userData--",userData);
+
+  const modalProps = {
+    item: modalType === 'create' ? {} : currentItem,
+    visible: modalVisible,
+    maskClosable: false,
+    confirmLoading: loading.effects['userDetail/update'],
+    title: `${modalType === 'create' ? '添加设备' : '修改设备'}`,
+    wrapClassName: 'vertical-center-modal',
+    storeList,
+    onOk (data) {
+      if(modalType === 'create'){
+        dispatch({
+          type: `userDetail/create`,
+          payload: data,
+        })
+      }else{
+        dispatch({
+          type: `userDetail/update`,
+          payload: {...data,"startTime":"1970-01-01 00:00:00","endTime":"2050-01-01 00:00:00"},
+        })
+      }
+    },
+    onCancel () {
+      dispatch({
+        type: 'userDetail/hideModal',
+      })
+    },
+  }
 
   const handleMenuClick = (record, e) => {
     if (e.key === '1') {
@@ -25,33 +56,53 @@ const Detail = ({ userDetail }) => {
       confirm({
         title: '您是否要删除该用户?',
         onOk () {
-          onDeleteItem(record.id)
+          console.log("删除Id",record);
+          dispatch({
+            type: 'userDetail/removeDevice',
+            payload: {
+              id: record.id
+            },
+          })
         },
       })
     }
   }
 
+  const addDevice = () => {
+    dispatch({
+      type: 'userDetail/showModal',
+      payload: {
+        modalType: 'create',
+      },
+    })
+  }
+
+
   const columns = [
-    {
+    /*{
       title: '序号',
-      dataIndex: 'numId',
-      key: 'numId',
-    }, {
+      dataIndex: 'id',
+      key: 'id',
+    },*/ {
       title: '店铺',
-      dataIndex: 'store',
-      key: 'store',
+      dataIndex: 'name',
+      key: 'name',
     }, {
       title: '设备ID',
-      dataIndex: 'equipmentId',
-      key: 'equipmentId',
+      dataIndex: 'code',
+      key: 'code',
     }, {
       title: '位置',
-      dataIndex: 'address',
-      key: 'address',
+      dataIndex: 'geoString',
+      key: 'geoString',
     }, {
       title: '状态',
-      dataIndex: 'state',
-      key: 'state',
+      dataIndex: 'status',
+      key: 'status',
+      render: (text) => {
+        const txt = text==0?"异常":"在线";
+        return(`${txt}`)
+      }
     }, {
       title: '操作',
       key: 'operation',
@@ -62,7 +113,7 @@ const Detail = ({ userDetail }) => {
     },
   ]
 
-  const storeData = [];
+  /*const storeData = [];
   for (let i = 0; i < 46; i++) {
     storeData.push({
       numId: i+1,
@@ -71,8 +122,9 @@ const Detail = ({ userDetail }) => {
       address: `London, Park Lane no. ${i}`,
       state: '在线',
     });
-  }
+  }*/
 
+  console.log("数据--",devicesData);
   return (<div className="content-inner">
     <div className={styles.personalInfo}>
       <Card className={styles.card}>
@@ -104,20 +156,32 @@ const Detail = ({ userDetail }) => {
       </Card>
     </div>
     <div className={styles.storeTable}>
+      <Row className={styles.header}>
+        <Col  xl={{ span: 4 }} md={{ span: 8 }}>
+          <p>设备列表</p>
+        </Col>
+        <Col  xl={{ span: 4 }} md={{ span: 8 }} sm={{ span: 8 }}>
+          <Button size="large" type="ghost" onClick={addDevice}>添加设备</Button>
+        </Col>
+      </Row>
       <Table
         bordered
         scroll={{ x: 1250 }}
         columns={columns}
         simple
-        rowKey={record => record.numId}
-        dataSource={storeData}
+        rowKey={record => record.id}
+        dataSource={devicesData.data}
       />
+      {modalVisible && <Modals {...modalProps} />}
     </div>
   </div>)
 }
 
 Detail.propTypes = {
   userDetail: PropTypes.object,
+  location: PropTypes.object,
+  dispatch: PropTypes.func,
+  loading: PropTypes.object,
 }
 
-export default connect(({ userDetail, loading }) => ({ userDetail, loading: loading.models.userDetail }))(Detail)
+export default connect(({ userDetail, loading }) => ({ userDetail, loading: loading }))(Detail)
